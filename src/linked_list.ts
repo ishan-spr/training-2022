@@ -1,30 +1,30 @@
-interface INode {
-    value: number,
-    next: null | INode,
+interface INode<T> {
+    value: T,
+    next: null | INode<T>,
 }
 
-interface ILinkedList {
-    head: INode
+interface ILinkedList<T> {
+    head: INode<T>
     size: Function
 }
 
-class LinkedNode implements INode {
-    value: number;
-    next: null | INode
-    constructor(value: number) {
+class LinkedNode<T> implements INode<T>{
+    value: T;
+    next: null | INode<any>
+    constructor(value: T) {
         this.value = value;
         this.next = null
     }
 };
 
-class LinkedList implements ILinkedList {
-    head: INode
-    constructor(node: INode) {
+class LinkedList<T> implements ILinkedList<T>{
+    head: INode<T>
+    constructor(node: INode<T>) {
         this.head = node
     }
     size() {
         let count = 0;
-        let curr: INode | null = this.head;
+        let curr: INode<T> | null = this.head;
         while (curr !== null) {
             count++;
             curr = curr.next;
@@ -33,20 +33,20 @@ class LinkedList implements ILinkedList {
     }
 }
 
-let l1 = new LinkedNode(1);
+let l1 = new LinkedNode("Hello");
 let l2 = new LinkedNode(2);
-let l3 = new LinkedNode(3);
-let l4 = new LinkedNode(4);
+let l3 = new LinkedNode(true);
+let l4 = new LinkedNode({ a: 56 });
 
 l1.next = l2;
 l2.next = l3;
 l3.next = l4;
 
-let curr: INode | null = l1;
+let curr: INode<number | any> | null = l1;
 while (curr !== null) {
     console.log(curr.value);
     curr = curr.next;
 }
 
-const ll = new LinkedList(l1);
+let ll = new LinkedList(l1);
 console.log("Size of Linked List : ", ll.size())
