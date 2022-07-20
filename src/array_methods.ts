@@ -12,7 +12,7 @@ const getMax = (a: number, b: number) => Math.max(a, b);
 const arr: Array<number> = [100, 50, 45, 67, 2876]
 let ans = myReduce<number>(arr, getMax, 50)
 
-console.log("Reduce : ",ans);
+console.log("Reduce : ", ans);
 
 export const myMap = <T>(arr: Array<T>, fn: (el: T) => any): Array<any> | null => {
     let ans = arr.reduce((prev: Array<any>, curr: T) => {
@@ -23,9 +23,26 @@ export const myMap = <T>(arr: Array<T>, fn: (el: T) => any): Array<any> | null =
     return ans;
 }
 
-const add1 = (a: number) => a+1;
+const add1 = (a: number) => a + 1;
 
 const arr2: Array<number> = [100, 50, 45, 67, 2876]
 let ans2 = myMap<number>(arr2, add1)
 
-console.log("Map : ",ans2);
+console.log("Map : ", ans2);
+
+export const myFilter = <T>(arr: Array<T>, fn: (el: T) => boolean): Array<any> | null => {
+    let ans = arr.reduce((prev: Array<any>, curr: T) => {
+        let temp = [...prev]
+        let isIncluded = fn(curr)
+        if (isIncluded) temp.push(curr)
+        return temp
+    }, [])
+    return ans;
+}
+
+const cond = (a: number) => a > 60;
+
+const arr3: Array<number> = [100, 50, 45, 67, 2876]
+let ans3 = myFilter<number>(arr3, cond)
+
+console.log("Filter : ", ans3);
